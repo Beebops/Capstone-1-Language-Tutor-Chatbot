@@ -1,6 +1,7 @@
 import os
-
-from flask import Flask, render_template, flash, redirect, url_for
+import openai
+import openaiapi
+from flask import Flask, request, jsonify, render_template, flash, redirect, url_for
 from flask_debugtoolbar import DebugToolbarExtension
 from flask_login import (
     LoginManager,
@@ -58,7 +59,13 @@ def home():
 @login_required
 def chat_page(chat_id):
     """Displays a chat and updates its messages"""
+    if request.method == "POST":
+        prompt = request.form["prompt"]
+        message = openaiapi.generate_chat_response(prompt)
+        response = {}
+        response["message"] = message
 
+        return jsonify(response), 200
     # Need to add form that submits user input to OpenAI API and generates response
 
     return render_template("chat.html", chat_id=chat_id)
