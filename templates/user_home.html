@@ -1,0 +1,58 @@
+{% extends 'base.html' %} {% block title %}User Home Page{% endblock %}{% block
+content %}
+<div class="container">
+  <div class="row">
+    <div class="col-md-6">
+      <h1 class="text-center">{{current_user.username}}'s Home Page</h1>
+
+      <aside class="list-group">
+        {% for chat in user_chats %}
+        <a href="#" class="list-group-item">{{ chat.id }}Title of Chat</a>
+        {% endfor %}
+        <!-- <a
+          href="#"
+          class="list-group-item list-group-item-action active"
+          aria-current="true"
+          >Chat 1 placeholder</a
+        >
+        <a href="#" class="list-group-item list-group-item-action"
+          >Chat 2 placeholder</a
+        >
+        <a href="#" class="list-group-item list-group-item-action"
+          >Chat 3 placeholder</a
+        >
+        <a href="#" class="list-group-item list-group-item-action"
+          >Chat 4 placeholder</a
+        > -->
+      </aside>
+
+      <main>
+        <div class="text-center mt-4">
+          <h2>New Chat</h2>
+
+          <form method="POST" action="{{ url_for('home') }}">
+            {{ form.hidden_tag() }}
+            <div class="form-group">
+              {{ form.language.label(class="form-label") }} {{
+              form.language(class="form-control") }}
+            </div>
+            <div class="form-group">
+              {{ form.language_level.label(class="form-label") }} {{
+              form.language_level(class="form-control") }}
+            </div>
+            <div class="form-group">
+              <button class="btn btn-primary" type="submit">
+                Start New Chat
+              </button>
+            </div>
+          </form>
+        </div>
+      </main>
+
+      <div class="text-center mt-4">
+        <a href="{{ url_for('logout') }}" class="btn btn-primary">Logout</a>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

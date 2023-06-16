@@ -2,6 +2,7 @@ from flask_bcrypt import Bcrypt
 from datetime import datetime
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import UserMixin, login_user
+from sqlalchemy.dialects.postgresql import JSONB
 
 db = SQLAlchemy()
 bcrypt = Bcrypt()
@@ -24,6 +25,19 @@ class Chat(db.Model):
         "Chat_log", backref="chat", cascade="all, delete-orphan"
     )
 
+    @classmethod
+    def create_chat(cls, user_id, language, language_level):
+        """Create a new chat for a user"""
+        chat = cls(user_id=user_id, language=language, language_level=language_level)
+        db.session.add(chat)
+        db.session.commit()
+        return chat
+
+    def delete_chat(self):
+        """Delete the chat and its associated messages."""
+        db.session.delete(self)
+        db.session.commit()
+
 
 class Chat_log(db.Model):
     """Model of messages produced by either the user or assistant in a chat"""
@@ -34,11 +48,16 @@ class Chat_log(db.Model):
 
     role = db.Column(db.String(50), nullable=False)
 
-    content = db.Column(db.Text)
+    content = db.Column(JSONB(none_as_null=True), nullable=False)
 
     timestamp = db.Column(db.DateTime, nullable=False, default=datetime.utcnow())
 
     chat_id = db.Column(db.Integer, db.ForeignKey("chats.id", ondelete="cascade"))
+
+    @classmethod
+    def get_content_by_chat(cls, chat_id):
+        """Retrieve all messages for a given chat id"""
+        return cls.query.filter_by(chat_id=chat_id).all()
 
 
 class User(UserMixin, db.Model):

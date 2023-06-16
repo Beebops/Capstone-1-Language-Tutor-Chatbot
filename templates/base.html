@@ -10,9 +10,36 @@
       integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM"
       crossorigin="anonymous"
     />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootswatch@5.3.0/dist/superhero/bootstrap.min.css">
     <title>{% block title %}{% endblock %}</title>
   </head>
-  <body>
-    {% block content %}{% endblock %}
+  <body class="pt-5">
+    <header>
+      <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-secondary"">
+        <div class="container-fluid">
+          <a class="navbar-brand" href="/">Foreign Language Tutor</a>
+          <button
+            class="navbar-toggler"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#navbarCollapse"
+            aria-controls="navbarCollapse"
+            aria-expanded="false"
+            aria-label="Toggle navigation"
+          >
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav me-auto mb-2 mb-md-0">
+              <li class="text-light">Practice Your Foreign Language Conversation Skills</li>
+            </ul>
+          </div>
+        </div>
+      </nav>
+    </header>
+    <div class="container mt-5">
+      {% block content %}{% endblock %}
+    </div>
+    
   </body>
 </html>
