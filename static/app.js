@@ -27,6 +27,7 @@ $('#submit-button').click(async function () {
       </div>
     `
     $('#message-group').append(apiData)
+    console.log(message)
   } catch (error) {
     // Handle error
     alert('Oh uh! We are experiencing technical difficulties. Try again later')

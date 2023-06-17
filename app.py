@@ -1,6 +1,7 @@
 import os
 import openai
 import openaiapi
+from datetime import datetime
 from flask import Flask, request, jsonify, render_template, flash, redirect, url_for
 from flask_debugtoolbar import DebugToolbarExtension
 from flask_login import (
@@ -57,8 +58,23 @@ def chat_page(chat_id):
     if request.method == "POST":
         data = request.get_json()
         prompt = data["prompt"]
+        Message.create_message(
+            chat_id,
+            role="User",
+            content=prompt,
+            timestamp=datetime.utcnow(),
+        )
+
         assistant_message = openaiapi.generate_chat_response(prompt)
         response = {"assistant_message": assistant_message}
+        print(response)
+        Message.create_message(
+            chat_id,
+            role="Assistant",
+            content=response["assistant_message"],
+            timestamp=datetime.utcnow(),
+        )
+
         return jsonify(response), 200
 
     return render_template("chat.html", chat_id=chat_id)
