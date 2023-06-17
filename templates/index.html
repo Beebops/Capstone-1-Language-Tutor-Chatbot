@@ -1,23 +1,20 @@
 {% extends 'base.html' %} {% block title %}Home Page{% endblock %}{% block
 content %}
-
-{% for msg in get_flashed_messages() %}
-<p>{{ msg }}</p>
-{% endfor %}
-
-{% if current_user.is_authenticated %}
-
-<a href="{{ url_for('logout') }}" class="btn btn-primary">Logout</a>
-{% else %}
-<div class="container-fluid mb-1">
-  
- 
-  <a href="{{ url_for('login') }}" class="btn btn-primary">Login</a>
-  <a href="{{ url_for('signup_user') }}" class="btn btn-primary">Sign Up</a>
-
-</div>
-
+<div class="container d-flex justify-content-center">
+  <div class="col-md-7 col-lg-5">
+    {% for msg in get_flashed_messages() %}
+    <p>{{ msg }}</p>
+    {% endfor %}
+    {% if current_user.is_authenticated %}
+  <a href="{{ url_for('logout') }}" class="btn btn-primary">Logout</a>
+  {% else %}
+  <div class="container-fluid mb-1">
+    <a href="{{ url_for('login') }}" class="btn btn-primary">Login</a>
+    <a href="{{ url_for('signup_user') }}" class="btn btn-primary">Sign Up</a>
+  </div>
 {% endif %}
+  </div>
 
-{% endblock %}
 </div>
+</div>
+{% endblock %}

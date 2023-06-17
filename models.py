@@ -21,8 +21,8 @@ class Chat(db.Model):
 
     language_level = db.Column(db.String(15), nullable=False)
 
-    chat_logs = db.relationship(
-        "Chat_log", backref="chat", cascade="all, delete-orphan"
+    chats_logs = db.relationship(
+        "Message", backref="chat", cascade="all, delete-orphan"
     )
 
     @classmethod
@@ -39,20 +39,28 @@ class Chat(db.Model):
         db.session.commit()
 
 
-class Chat_log(db.Model):
+class Message(db.Model):
     """Model of messages produced by either the user or assistant in a chat"""
 
-    __tablename__ = "chat_logs"
+    __tablename__ = "messages"
 
     id = db.Column(db.Integer, primary_key=True)
 
     role = db.Column(db.String(50), nullable=False)
 
-    content = db.Column(JSONB(none_as_null=True), nullable=False)
+    content = db.Column(db.Text)
 
     timestamp = db.Column(db.DateTime, nullable=False, default=datetime.utcnow())
 
     chat_id = db.Column(db.Integer, db.ForeignKey("chats.id", ondelete="cascade"))
+
+    @classmethod
+    def create_message(cls, chat_id, role, content, timestamp):
+        """Log a new message to a chat"""
+        message = cls(chat_id=chat_id, role=role, content=content, timestamp=timestamp)
+        db.session.add(message)
+        db.session.commit()
+        return message
 
     @classmethod
     def get_content_by_chat(cls, chat_id):

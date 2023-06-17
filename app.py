@@ -11,7 +11,7 @@ from flask_login import (
     logout_user,
 )
 from forms import login_form, registration_form, new_chat_form
-from models import db, connect_db, User, Chat, Chat_log
+from models import db, connect_db, User, Chat, Message
 
 app = Flask(__name__)
 
@@ -40,7 +40,7 @@ def load_user(user_id):
 def home():
     """Displays user's home page with list of saved chats and form to create a new chat"""
 
-    user_chats = Chat.query.filter_by(user_id=current_user.id).all()
+    # user_chats = Chat.query.filter_by(user_id=current_user.id).all()
 
     form = new_chat_form()
 
@@ -49,24 +49,20 @@ def home():
         language_level = form.language_level.data
 
         chat = Chat.create_chat(current_user.id, language, language_level)
+        return redirect(url_for("chat_page", chat_id=chat.id, form=form))
 
-        return redirect(url_for("chat_page", chat_id=chat.id))
-
-    return render_template("user_home.html", form=form, user_chats=user_chats)
+    return render_template("user_home.html", form=form)
 
 
 @app.route("/chat/<int:chat_id>", methods=["GET", "POST"])
 @login_required
 def chat_page(chat_id):
-    """Displays a chat and updates its messages"""
     if request.method == "POST":
-        prompt = request.form["prompt"]
+        data = request.get_json()
+        prompt = data["prompt"]
         message = openaiapi.generate_chat_response(prompt)
-        response = {}
-        response["message"] = message
-
+        response = {"message": message}
         return jsonify(response), 200
-    # Need to add form that submits user input to OpenAI API and generates response
 
     return render_template("chat.html", chat_id=chat_id)
 
