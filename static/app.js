@@ -1,5 +1,3 @@
-// need to figure out how to get the logged in user's id programmatically
-
 const chatId = $('#message-group').data('chatId')
 
 $('#submit-button').click(async function () {
@@ -18,6 +16,7 @@ $('#submit-button').click(async function () {
 
   try {
     const response = await axios.post(`/chat/${chatId}`, { prompt: message })
+
     let apiData = `
       <div class="bg-secondary list-group-item list-group-item-action d-flex gap-3 py-3 border border-light border-1">
         <p class="fs-1">&#127891;</p>

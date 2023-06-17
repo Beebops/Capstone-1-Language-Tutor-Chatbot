@@ -16,13 +16,13 @@
   </head>
   <body class="pt-5">
     <header>
-      <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-primary"">
+      <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-secondary"">
         <div class="container-fluid">
           <a class="navbar-brand" href="/">Foreign Language Tutor</a>
             <ul class="navbar-nav me-auto mb-2 mb-md-0">
               <li class="text-light">Practice Foreign Language Conversation Skills</li>
               {% if current_user.is_authenticated %}
-              <li>Hello, {{ current_user.username }}</li>
+              <li><a href="{{ url_for('home') }}">{{ current_user.username }} Home</a></li>
               {% endif %}
             </ul>
           </div>

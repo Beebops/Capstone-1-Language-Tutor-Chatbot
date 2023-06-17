@@ -3,11 +3,11 @@ import openai
 
 openai.api_key = os.getenv("OPENAI_API_KEY")
 
-language = "Mexican Spanish"
-language_level = "B1"
+# language = "Mexican Spanish"
+# language_level = "B1"
 
 
-def generate_chat_response(prompt):
+def generate_chat_response(prompt, language, language_level):
     messages = []
     messages.append(
         {

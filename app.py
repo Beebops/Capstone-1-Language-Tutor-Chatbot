@@ -56,6 +56,7 @@ def home():
 @login_required
 def chat_page(chat_id):
     if request.method == "POST":
+        # Get the user's prompt input and save it as new message in db
         data = request.get_json()
         prompt = data["prompt"]
         Message.create_message(
@@ -65,9 +66,16 @@ def chat_page(chat_id):
             timestamp=datetime.utcnow(),
         )
 
-        assistant_message = openaiapi.generate_chat_response(prompt)
+        # Retrieve the language and language level from the Chat model
+        chat = Chat.query.get(chat_id)
+        language = chat.language
+        language_level = chat.language_level
+
+        # Call the API and create a new message log in db
+        assistant_message = openaiapi.generate_chat_response(
+            prompt, language, language_level
+        )
         response = {"assistant_message": assistant_message}
-        print(response)
         Message.create_message(
             chat_id,
             role="Assistant",
