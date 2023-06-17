@@ -3,7 +3,6 @@ import openai
 
 openai.api_key = os.getenv("OPENAI_API_KEY")
 
-# need to capture the input values from the new chat form when chat is created to fill these in
 language = "Mexican Spanish"
 language_level = "B1"
 

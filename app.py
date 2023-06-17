@@ -17,7 +17,7 @@ app = Flask(__name__)
 
 app.debug = True
 
-app.config["SQLALCHEMY_DATABASE_URI"] = "postgresql:///ai_language_tutor"
+app.config["SQLALCHEMY_DATABASE_URI"] = "postgresql:///capstone_language_tutor"
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 app.config["SQLALCHEMY_ECHO"] = False
 app.config["DEBUG_TB_INTERCEPT_REDIRECTS"] = False
@@ -39,9 +39,6 @@ def load_user(user_id):
 @login_required
 def home():
     """Displays user's home page with list of saved chats and form to create a new chat"""
-
-    # user_chats = Chat.query.filter_by(user_id=current_user.id).all()
-
     form = new_chat_form()
 
     if form.validate_on_submit():
@@ -60,8 +57,8 @@ def chat_page(chat_id):
     if request.method == "POST":
         data = request.get_json()
         prompt = data["prompt"]
-        message = openaiapi.generate_chat_response(prompt)
-        response = {"message": message}
+        assistant_message = openaiapi.generate_chat_response(prompt)
+        response = {"assistant_message": assistant_message}
         return jsonify(response), 200
 
     return render_template("chat.html", chat_id=chat_id)

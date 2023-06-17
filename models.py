@@ -2,7 +2,6 @@ from flask_bcrypt import Bcrypt
 from datetime import datetime
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import UserMixin, login_user
-from sqlalchemy.dialects.postgresql import JSONB
 
 db = SQLAlchemy()
 bcrypt = Bcrypt()

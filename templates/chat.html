@@ -3,7 +3,11 @@ content %}
 
 <main class="flex-shrink-0">
   <div class="container">
-    <div id="message-group" class="list-group w-auto"></div>
+    <div
+      id="message-group"
+      data-chat-id="{{ chat_id }}"
+      class="list-group w-auto"
+    ></div>
 
     <div class="input-group mb-3">
       <input
