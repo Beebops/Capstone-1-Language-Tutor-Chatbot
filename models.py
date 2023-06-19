@@ -2,6 +2,7 @@ from flask_bcrypt import Bcrypt
 from datetime import datetime
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import UserMixin, login_user
+from sqlalchemy.sql import func
 
 db = SQLAlchemy()
 bcrypt = Bcrypt()
@@ -20,9 +21,9 @@ class Chat(db.Model):
 
     language_level = db.Column(db.String(15), nullable=False)
 
-    chats_logs = db.relationship(
-        "Message", backref="chat", cascade="all, delete-orphan"
-    )
+    messages = db.relationship("Message", backref="chat", cascade="all, delete-orphan")
+
+    created_at = db.Column(db.DateTime, nullable=False, default=func.now())
 
     @classmethod
     def create_chat(cls, user_id, language, language_level):
@@ -36,6 +37,21 @@ class Chat(db.Model):
         """Delete the chat and its associated messages."""
         db.session.delete(self)
         db.session.commit()
+
+    @property
+    def title(self):
+        """Generate a title for the chat basef on its messages"""
+        messages = self.messages
+        # if messages:
+        #     use ChatGPT to provide a title for the chat
+        #     return title
+
+        return "Untitled"
+
+    @classmethod
+    def get_chats_by_user(cls, user_id):
+        """Retrieve all chats for a given user starting with the most recent"""
+        return cls.query.filter_by(user=user_id).order_by(cls.created_at.desc()).all()
 
 
 class Message(db.Model):
@@ -62,7 +78,7 @@ class Message(db.Model):
         return message
 
     @classmethod
-    def get_content_by_chat(cls, chat_id):
+    def get_messages_by_chat(cls, chat_id):
         """Retrieve all messages for a given chat id"""
         return cls.query.filter_by(chat_id=chat_id).all()
 
