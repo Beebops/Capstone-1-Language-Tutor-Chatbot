@@ -26,7 +26,11 @@ content %}
     </main>
 
     <div class="text-center mt-4">
-      <a href="" class="btn btn-primary">Saved Chats</a>
+      <a
+        href="{{ url_for('get_chats', user_id=current_user.id) }}"
+        class="btn btn-primary"
+        >Saved Chats</a
+      >
       <a href="{{ url_for('logout') }}" class="btn btn-warning">Logout</a>
     </div>
   </div>

@@ -39,7 +39,7 @@ def load_user(user_id):
 @app.route("/home", methods=["GET", "POST"])
 @login_required
 def home():
-    """Displays user's home page with list of saved chats and form to create a new chat"""
+    """Displays user's home page with form to create a new chat"""
     form = new_chat_form()
 
     if form.validate_on_submit():
@@ -50,6 +50,16 @@ def home():
         return redirect(url_for("chat_page", chat_id=chat.id, form=form))
 
     return render_template("user_home.html", form=form)
+
+
+@app.route("/<int:user_id>/chats")
+@login_required
+def get_chats(user_id):
+    """Shows list of all saved chats of logged in user"""
+    user = User.query.get(user_id)
+    chats = user.chats
+
+    return render_template("chat_list.html", chats=chats, user=user)
 
 
 @app.route("/chat/<int:chat_id>", methods=["GET", "POST"])
@@ -126,7 +136,7 @@ def login():
         else:
             flash("Invalid username or password", "danger")
 
-    return render_template("login.html", form=form)
+    return render_template("login.html", form=form, user=user)
 
 
 @app.route("/logout")
