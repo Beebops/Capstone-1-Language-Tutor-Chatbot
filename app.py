@@ -47,6 +47,7 @@ def home():
         language_level = form.language_level.data
 
         chat = Chat.create_chat(current_user.id, language, language_level)
+
         return redirect(url_for("chat_page", chat_id=chat.id, form=form))
 
     return render_template("user_home.html", form=form)
@@ -92,10 +93,10 @@ def chat_page(chat_id):
             content=response["assistant_message"],
             timestamp=datetime.utcnow(),
         )
-
         return jsonify(response), 200
 
-    return render_template("chat.html", chat_id=chat_id)
+    messages = Message.get_messages_by_chat(chat_id)
+    return render_template("chat.html", chat_id=chat_id, messages=messages)
 
 
 ################# USER LOGIN AND REGISTRATION #################
@@ -136,7 +137,7 @@ def login():
         else:
             flash("Invalid username or password", "danger")
 
-    return render_template("login.html", form=form, user=user)
+    return render_template("login.html", form=form)
 
 
 @app.route("/logout")

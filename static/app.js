@@ -5,7 +5,7 @@ $('#submit-button').click(async function () {
 
   let htmlData = `
     <div class="bg-secondary list-group-item list-group-item-action d-flex gap-3 py-3 border border-light border-1">
-      <p class="fs-1">&#128512;</p>
+      <p class="fs-3">&#128512;</p>
       <p id="user-text" class="mb-0 opacity-75">
         ${message}
       </p>
@@ -19,7 +19,7 @@ $('#submit-button').click(async function () {
 
     let apiData = `
       <div class="bg-secondary list-group-item list-group-item-action d-flex gap-3 py-3 border border-light border-1">
-        <p class="fs-1">&#127891;</p>
+        <p class="fs-3">&#127891;</p>
         <p id="user-text" class="mb-0 opacity-75">
           ${response.data.assistant_message}
         </p>
@@ -29,7 +29,7 @@ $('#submit-button').click(async function () {
     console.log(message)
   } catch (error) {
     // Handle error
-    alert('Oh uh! We are experiencing technical difficulties. Try again later')
+    alert('Uh oh! We are experiencing technical difficulties. Try again later')
     console.error(error)
   }
 })

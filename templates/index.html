@@ -3,7 +3,7 @@ content %}
 <div class="container d-flex justify-content-center">
   <div class="col-md-7 col-lg-5">
     {% for msg in get_flashed_messages() %}
-    <p class="text-success">{{ msg }}</p>
+    <p class="text-success bg-dark border border-success border-1">{{ msg }}</p>
     {% endfor %}
     {% if current_user.is_authenticated %}
   <a href="{{ url_for('logout') }}" class="btn btn-primary">Logout</a>
