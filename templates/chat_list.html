@@ -4,7 +4,11 @@ content %}
   <div class="col-md-7 col-lg-5">
     <ul>
       {% for chat in chats %}
-      <li><a href="">{{ chat.created_at }}</a></li>
+      <li>
+        <a href="{{ url_for('chat_page', chat_id=chat.id) }}"
+          >{{ chat.created_at }}</a
+        >
+      </li>
       {% endfor %}
     </ul>
   </div>
