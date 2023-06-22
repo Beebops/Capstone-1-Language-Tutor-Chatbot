@@ -11,7 +11,15 @@ from flask_login import (
     login_required,
     logout_user,
 )
-from forms import login_form, registration_form, new_chat_form
+from forms import (
+    login_form,
+    registration_form,
+    new_chat_form,
+    title_chat_form,
+    language_filter_form,
+    chat_title_filter_form,
+    order_filter_form,
+)
 from models import db, connect_db, User, Chat, Message
 
 app = Flask(__name__)
@@ -53,14 +61,45 @@ def home():
     return render_template("user_home.html", form=form)
 
 
+@app.route("/edit/int:<chat_id>", methods=["GET", "POST"])
+@login_required
+def edit(chat_id):
+    """Edit chat title"""
+    chat = Chat.query.get(chat_id)
+    form = title_chat_form(obj=chat)
+
+    if chat:
+        form.title.data = chat.chat_title
+
+    if form.validate_on_submit():
+        title = form.title.data
+        chat.chat_title = title
+        db.session.commit()
+
+        return redirect(url_for("get_chats", user_id=current_user.id))
+
+    return render_template("chat_title.html", form=form)
+
+
 @app.route("/<int:user_id>/chats")
 @login_required
 def get_chats(user_id):
-    """Shows list of all saved chats of logged in user"""
+    """Shows list of all saved chats of logged in user and filters them"""
+    language_form = language_filter_form()
+    chat_title_form = chat_title_filter_form()
+    order_form = order_filter_form()
+
     user = User.query.get(user_id)
     chats = user.chats
 
-    return render_template("chat_list.html", chats=chats, user=user)
+    return render_template(
+        "chat_list.html",
+        chats=chats,
+        user=user,
+        language_form=language_form,
+        chat_title_form=chat_title_form,
+        order_form=order_form,
+    )
 
 
 @app.route("/chat/<int:chat_id>", methods=["GET", "POST"])
@@ -131,10 +170,7 @@ def login():
     if form.validate_on_submit():
         user = User.authenticate(form.username.data, form.password.data)
 
-        if user:
-            flash("You are now logged in!", "success")
-            return redirect(url_for("home"))
-        else:
+        if not user:
             flash("Invalid username or password", "danger")
 
     return render_template("login.html", form=form)

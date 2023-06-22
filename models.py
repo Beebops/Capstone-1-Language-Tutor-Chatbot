@@ -24,8 +24,8 @@ class Chat(db.Model):
 
     messages = db.relationship("Message", backref="chat", cascade="all, delete-orphan")
 
-    chat_title = db.Column(db.String(100))
-
+    chat_title = db.Column(db.String(100), default="Untitled")
+   
     created_at = db.Column(db.DateTime, nullable=False, default=func.now())
 
     @classmethod
@@ -41,36 +41,13 @@ class Chat(db.Model):
         db.session.delete(self)
         db.session.commit()
 
-    @property
-    def title(self):
-        """Generate a title for the chat based on its messages"""
-        messages = self.messages
-        if messages:
-            # Join all messages into a single string to prompt AI
-            conversation = "Generate a brief title for the following conversation between a foreign language tutor and their student in the target language: ".join(
-                [message.content for message in messages]
-            )
-            # Call OpenAI API to generate a chat title based on the conversation
-            response = openai.Completetion.create(
-                engine="text-davinci-003",
-                prompt=conversation,
-                temperature=0.8,
-                n=1,
-                stop=None,
-                timeout=10,
-            )
-            if response.choices and response.choices[0].text:
-                chat_title = response.choices[0].text.strip()
-                db.session.add(chat_title)
-                db.session.commit()
-                return chat_title
-
-        return "Untitled"
-
     @classmethod
     def get_chats_by_user(cls, user_id):
         """Retrieve all chats for a given user starting with the most recent"""
         return cls.query.filter_by(user=user_id).order_by(cls.created_at.desc()).all()
+
+
+
 
 
 class Message(db.Model):

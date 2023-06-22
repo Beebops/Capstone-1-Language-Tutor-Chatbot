@@ -2,9 +2,10 @@ from wtforms import StringField, PasswordField, ValidationError, SelectField
 from wtforms.validators import EqualTo
 from flask_wtf import FlaskForm
 from wtforms.validators import InputRequired, Length, Email
-from models import User
+from models import User, Chat
 import email_validator
 from flask_login import current_user
+from flask import current_app
 
 
 class login_form(FlaskForm):
@@ -56,3 +57,40 @@ class new_chat_form(FlaskForm):
     language_level = SelectField(
         "Difficulty Level", choices=difficulty_choices, validators=[InputRequired()]
     )
+
+
+class title_chat_form(FlaskForm):
+    title = StringField(
+        "Title", validators=[InputRequired()], render_kw={"class": "form-control"}
+    )
+
+
+class language_filter_form(FlaskForm):
+    language_choices = [
+        ("spanish", "Spanish"),
+        ("french", "French"),
+        ("german", "German"),
+        ("italian", "Italian"),
+    ]
+    language = SelectField(
+        "Language", choices=language_choices, validators=[InputRequired()]
+    )
+
+
+class chat_title_filter_form(FlaskForm):
+    def __init__(self, *args, **kwargs):
+        super(chat_title_filter_form, self).__init__(*args, **kwargs)
+        self.chat_title.choices = self.get_chat_title_choices()
+
+    chat_title = SelectField("Chat Title")
+
+    def get_chat_title_choices(self):
+        with current_app.app_context():
+            chat_titles = Chat.query.with_entities(Chat.chat_title).distinct().all()
+        choices = [("", "All")]
+        choices.extend([(title, title) for title, in chat_titles])
+        return choices
+
+
+class order_filter_form(FlaskForm):
+    order = SelectField("Order", choices=[("oldest", "Oldest"), ("newest", "Newest")])
