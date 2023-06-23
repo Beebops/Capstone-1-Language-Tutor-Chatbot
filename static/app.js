@@ -4,13 +4,18 @@ $('#submit-button').click(async function () {
   const message = $('#user-input').val()
 
   let htmlData = `
-    <div class="bg-secondary list-group-item list-group-item-action d-flex gap-3 py-3 border border-light border-1">
-      <p class="fs-3">&#128512;</p>
-      <p id="user-text" class="mb-0 opacity-75">
-        ${message}
-      </p>
-    </div>
+    <li class="list-group-item my-1">
+      <div class="row align-items-center">
+        <div class="col-auto">
+          <p class="fs-3">&#128512;</p>
+        </div>
+        <div class="col">
+          <p id="user-text" class="opacity-75">${message}</p>
+        </div>
+      </div>
+    </li>
   `
+
   $('#user-input').val('')
   $('#message-group').append(htmlData)
 
@@ -18,13 +23,18 @@ $('#submit-button').click(async function () {
     const response = await axios.post(`/chat/${chatId}`, { prompt: message })
 
     let apiData = `
-      <div class="bg-secondary list-group-item list-group-item-action d-flex gap-3 py-3 border border-light border-1">
-        <p class="fs-3">&#127891;</p>
-        <p id="user-text" class="mb-0 opacity-75">
-          ${response.data.assistant_message}
-        </p>
-      </div>
+      <li class="list-group-item my-1">
+        <div class="row align-items-center">
+          <div class="col-auto">
+            <p class="fs-3">&#128512;</p>
+          </div>
+          <div class="col">
+            <p id="user-text" class="opacity-75">${response.data.assistant_message}</p>
+          </div>
+        </div>
+      </li>
     `
+
     $('#message-group').append(apiData)
     console.log(message)
   } catch (error) {
