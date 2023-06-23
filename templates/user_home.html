@@ -1,10 +1,9 @@
 {% extends 'base.html' %} {% block title %}User Home Page{% endblock %}{% block
 content %}
 <div class="container d-flex justify-content-center">
-  <div class="col-md-7 col-lg-5">
+  <div class="col-lg-4 col-md-6">
     <div class="row">
-      <main>
-        <div class="mt-4">
+        
           <h2>New Chat</h2>
 
           <form method="POST" action="{{ url_for('home') }}">
@@ -18,22 +17,13 @@ content %}
               form.language_level(class="form-control") }}
             </div>
             <div class="form-group">
-              <button class="btn btn-success" type="submit">
+              <button class="btn btn-primary mt-3" type="submit">
                 Start New Chat
               </button>
             </div>
           </form>
         </div>
       </main>
-
-      <div class="text-center mt-4">
-        <a
-          href="{{ url_for('get_chats', user_id=current_user.id) }}"
-          class="btn btn-primary"
-          >Saved Chats</a
-        >
-        <a href="{{ url_for('logout') }}" class="btn btn-warning">Logout</a>
-      </div>
     </div>
   </div>
 </div>

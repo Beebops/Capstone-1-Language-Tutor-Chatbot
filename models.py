@@ -25,7 +25,7 @@ class Chat(db.Model):
     messages = db.relationship("Message", backref="chat", cascade="all, delete-orphan")
 
     chat_title = db.Column(db.String(100), default="Untitled")
-   
+
     created_at = db.Column(db.DateTime, nullable=False, default=func.now())
 
     @classmethod
@@ -44,10 +44,7 @@ class Chat(db.Model):
     @classmethod
     def get_chats_by_user(cls, user_id):
         """Retrieve all chats for a given user starting with the most recent"""
-        return cls.query.filter_by(user=user_id).order_by(cls.created_at.desc()).all()
-
-
-
+        return cls.query.filter_by(user_id=user_id).order_by(cls.created_at.desc())
 
 
 class Message(db.Model):

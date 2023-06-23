@@ -1,43 +1,38 @@
-{% extends 'base.html' %} {% block title %}Register{% endblock %} {% block
-content %}
+{% extends 'base.html' %} {% block title %}{{ current_user.username }}'s Chats{%
+endblock %} {% block content %}
 <div class="container">
-  <h1>Filter Chats</h1>
-  <form
-    method="GET"
-    action="{{ url_for('get_chats', user_id=current_user.id) }}"
-  >
-    {{ chat_title_form.csrf_token }}
-    <div class="form-group">
-      {{ chat_title_form.chat_title.label }} {{
-      chat_title_form.chat_title(class="form-control") }}
-    </div>
-    <button type="submit" class="btn btn-primary">Filter</button>
-  </form>
-
-  <hr />
-
-  <div class="container d-flex justify-content-center">
-    <div class="col-md-9 col-lg-5">
+  {% for msg in get_flashed_messages() %}
+  <p class="text-success bg-dark border border-success border-1">
+    {{ msg }}
+    {% endfor %}
+  <div class="row">
+    <div class="col-lg-8 offset-lg-2">
+     
       <ul class="list-group">
         {% for chat in chats %}
-        <li
-          class="list-group-item d-flex justify-content-between align-items-center"
-        >
-          <div>
-            <a
-              class="list-group-item list-group-item-action"
-              href="{{ url_for('chat_page', chat_id=chat.id) }}"
-            >
-              {{ chat.chat_title }}
-            </a>
-          </div>
-          <div>
-            <a
-              class="btn btn-primary mr-2"
-              href="{{ url_for('edit', chat_id=chat.id) }}"
-              >Edit Title</a
-            >
-            <a class="btn btn-danger" href="">Delete</a>
+        <li class="list-group-item mb-3">
+          <div class="d-flex justify-content-between align-items-center">
+            
+            </p>
+           
+            <div>
+              <a
+                class="list-group-item list-group-item-action"
+                href="{{ url_for('chat_page', chat_id=chat.id) }}"
+              >
+                {{ chat.chat_title }}
+              </a>
+            </div>
+            <div>
+                <a href="{{ url_for('edit', chat_id=chat.id) }}" class="custom-button">
+                  <i class="fa-solid fa-pen-to-square"></i>
+                </a>
+              
+                <a href="{{ url_for('delete_chat', chat_id=chat.id) }}" class="custom-button">
+                  <i class="fa-solid fa-trash"></i>
+                </a>
+              
+            </div>
           </div>
         </li>
         {% endfor %}

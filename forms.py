@@ -60,9 +60,7 @@ class new_chat_form(FlaskForm):
 
 
 class title_chat_form(FlaskForm):
-    title = StringField(
-        "Title", validators=[InputRequired()], render_kw={"class": "form-control"}
-    )
+    title = StringField("Title", render_kw={"class": "form-control"})
 
 
 class language_filter_form(FlaskForm):

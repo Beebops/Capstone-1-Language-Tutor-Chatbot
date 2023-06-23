@@ -61,45 +61,76 @@ def home():
     return render_template("user_home.html", form=form)
 
 
+@app.route("/chats/<int:user_id>")
+@login_required
+def display_chats(user_id):
+    """Shows all of user's chats"""
+    chats = Chat.get_chats_by_user(user_id)
+    return render_template("chat_list.html", chats=chats)
+
+
 @app.route("/edit/int:<chat_id>", methods=["GET", "POST"])
 @login_required
 def edit(chat_id):
     """Edit chat title"""
     chat = Chat.query.get(chat_id)
-    form = title_chat_form(obj=chat)
-
-    if chat:
-        form.title.data = chat.chat_title
+    form = title_chat_form()
 
     if form.validate_on_submit():
         title = form.title.data
         chat.chat_title = title
         db.session.commit()
 
-        return redirect(url_for("get_chats", user_id=current_user.id))
+        return redirect(url_for("display_chats", user_id=current_user.id))
 
     return render_template("chat_title.html", form=form)
 
 
 @app.route("/<int:user_id>/chats")
 @login_required
-def get_chats(user_id):
-    """Shows list of all saved chats of logged in user and filters them"""
+def filter_chats(user_id):
+    """Shows forms to filter chats"""
     language_form = language_filter_form()
-    chat_title_form = chat_title_filter_form()
     order_form = order_filter_form()
 
     user = User.query.get(user_id)
     chats = user.chats
 
+    if language_form.validate_on_submit():
+        language = language_form.language.data
+        chats = chats.filter(Chat.language.ilike(f"%{language}%"))
+
+    if order_form.validate_on_submit():
+        order = order_form.order.data
+        if order == "created_at":
+            chats = chats.order_by(Chat.created_at.desc())
+        elif order == "title":
+            chats = chats.order_by(Chat.chat_title.asc())
+
     return render_template(
-        "chat_list.html",
+        "chat_filters.html",
         chats=chats,
         user=user,
         language_form=language_form,
-        chat_title_form=chat_title_form,
         order_form=order_form,
     )
+
+
+@app.route("/chats/delete/<int:chat_id>", methods=["POST"])
+@login_required
+def delete_chat(chat_id):
+    """Deletes a chat"""
+    chat = Chat.query.get(chat_id)
+    if chat:
+        if chat.user_id == current_user.id:
+            chat.delete_chat()
+            flash("Chat deleted successfully", "success")
+        else:
+            flash("You do not have permission to delete this chat", "error")
+    else:
+        flash("Chat not found", "error")
+        
+    return redirect(url_for("display_chats", user_id=current_user.id))
 
 
 @app.route("/chat/<int:chat_id>", methods=["GET", "POST"])
@@ -172,6 +203,8 @@ def login():
 
         if not user:
             flash("Invalid username or password", "danger")
+
+        return redirect("/home")
 
     return render_template("login.html", form=form)
 

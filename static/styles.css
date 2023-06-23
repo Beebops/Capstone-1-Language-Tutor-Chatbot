@@ -1,0 +1,11 @@
+.custom-button {
+  border: none;
+  background: none;
+  color: #fff;
+  padding: 0;
+  cursor: pointer;
+}
+
+.custom-button:hover {
+  opacity: 0.5;
+}
