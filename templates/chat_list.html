@@ -42,6 +42,12 @@ endblock %} {% block content %}
               href="{{ url_for('chat_page', chat_id=chat.id) }}"
             >
               <span>{{ chat.chat_title }}</span>
+              <!-- display flag emoji hexcode here -->
+              <span class="flag">
+                {% if chat.language == 'german' %} 🇩🇪 {% elif chat.language ==
+                'french' %} 🇫🇷 {% elif chat.language == 'spanish' %} 🇪🇸 {% elif
+                chat.language == 'italian' %} 🇮🇹 {% endif %}
+              </span>
             </a>
 
             <div>
