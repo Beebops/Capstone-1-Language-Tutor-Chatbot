@@ -28,7 +28,7 @@
     <header>
       <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-secondary">
         <div class="container-fluid d-flex align-items-center">
-          <a class="navbar-brand" href="/">Foreign Language Tutor</a>
+          <a class="navbar-brand" href="#">ChatMentor</a>
 
           <button
             class="navbar-toggler"
@@ -49,20 +49,21 @@
             <ul class="navbar-nav">
               {% if current_user.is_authenticated %}
               <li class="nav-item">
+                <a class="nav-link" href="{{ url_for('new_chat') }}"
+                  >New Chat</a
+                >
+              </li>
+              <li class="nav-item">
                 <a
                   class="nav-link"
                   href="{{ url_for('display_chats', user_id=current_user.id) }}"
-                  >Chats</a
+                  >Saved Chats</a
                 >
               </li>
               <li class="nav-item">
                 <a class="nav-link" href="{{ url_for('logout') }}">Logout</a>
               </li>
-              <li class="nav-item">
-                <a class="nav-link" href="{{ url_for('home') }}"
-                  ><i class="fa-solid fa-house fa-lg icon"></i
-                ></a>
-              </li>
+
               {% else %}
               <li class="nav-item">
                 <a class="nav-link" href="{{ url_for('signup_user') }}"

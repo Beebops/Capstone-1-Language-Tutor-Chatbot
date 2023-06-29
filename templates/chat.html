@@ -13,8 +13,12 @@ content %}
         >
           {% if messages %} {% for message in messages %}
           <li class="list-group-item my-1">
-            <p class="fs-3">&#128512;</p>
-            <p id="user-text" class="opacity-75">{{ message.content }}</p>
+            {% if message.role == 'User' %}
+            <span class="fs-3">&#128512;</span>
+            {% else %}
+            <span class="fs-3">&#127891;</span>
+            {% endif %}
+            <span id="user-text" class="opacity-75">{{ message.content }}</span>
           </li>
           {% endfor %} {% endif %}
         </ul>
@@ -29,8 +33,8 @@ content %}
           id="user-input"
           type="text"
           class="form-control"
-          placeholder="start chatting"
-          aria-label="start chatting"
+          placeholder="start chatting with your tutor"
+          aria-label="start chatting with your tutor"
           aria-describedby="submit-button"
         />
         <button class="btn btn-primary" type="button" id="submit-button">

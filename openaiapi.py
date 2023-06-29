@@ -9,7 +9,7 @@ def generate_chat_response(prompt, language, language_level):
     messages.append(
         {
             "role": "system",
-            "content": f"You are a {language} language tutor. Answer only in colloquial {language} at CEFR(Common European Framework of Reference) level {language_level}.",
+            "content": f"You are a helpful {language} language tutor. Answer only in colloquial {language} at CEFR(Common European Framework of Reference) level {language_level}.",
         }
     )
 

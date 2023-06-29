@@ -3,22 +3,30 @@ endblock %} {% block content %}
 <div class="container">
   <div class="row">
     <div class="col-lg-8 offset-lg-2">
+      <h2 class="text-center">Your Chats</h2>
       {% for msg in get_flashed_messages() %}
       <p class="text-success border border-success border-1">
         {{ msg }} {% endfor %}
       </p>
-      <form id="language-form" class="mb-3">
-        <div class="form-group">
-          <label for="language-select">Select Language:</label>
-          <select class="form-control" id="language-select">
-            <option value="">All Languages</option>
-            <option value="spanish">Spanish</option>
-            <option value="french">French</option>
-            <option value="german">German</option>
-            <option value="italian">Italian</option>
-          </select>
+      <div class="d-flex justify-content-between align-items-center mb-3">
+        <form id="language-form" class="mb-3">
+          <div class="form-group">
+            <label for="language-select">Select Language:</label>
+            <select class="form-control" id="language-select">
+              <option value="">All Languages</option>
+              <option value="spanish">Spanish</option>
+              <option value="french">French</option>
+              <option value="german">German</option>
+              <option value="italian">Italian</option>
+            </select>
+          </div>
+        </form>
+        <div id="sortButtons">
+          <button id="sortAscending" class="btn btn-primary">
+            Toggle Oldest to Newest Chats
+          </button>
         </div>
-      </form>
+      </div>
 
       <ul class="list-group" id="chat-list">
         {% for chat in chats %}
@@ -56,11 +64,6 @@ endblock %} {% block content %}
         </li>
         {% endfor %}
       </ul>
-      <div id="sortButtons">
-        <button id="sortAscending" class="btn btn-primary mt-3">
-          Toggle Newest to Oldest Chats
-        </button>
-      </div>
     </div>
   </div>
 </div>

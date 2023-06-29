@@ -7,10 +7,10 @@ $('#submit-button').click(async function () {
     <li class="list-group-item my-1">
       <div class="row align-items-center">
         <div class="col-auto">
-          <p class="fs-3">&#128512;</p>
+          <span class="fs-3">&#128512;</span>
         </div>
         <div class="col">
-          <p id="user-text" class="opacity-75">${message}</p>
+          <span id="user-text" class="opacity-75">${message}</span>
         </div>
       </div>
     </li>
@@ -26,10 +26,10 @@ $('#submit-button').click(async function () {
       <li class="list-group-item my-1">
         <div class="row align-items-center">
           <div class="col-auto">
-            <p class="fs-3">&#128512;</p>
+            <span class="fs-3">&#127891;</span>
           </div>
           <div class="col">
-            <p id="user-text" class="opacity-75">${response.data.assistant_message}</p>
+            <span id="user-text" class="opacity-75">${response.data.assistant_message}</span>
           </div>
         </div>
       </li>

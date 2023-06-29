@@ -46,8 +46,8 @@ $('#sortAscending').click(function () {
 
   // Toggle the sort order for the next click
   if (sortOrder === 'asc') {
-    $(this).data('sort-order', 'desc').text('Toggle Oldest to Newest Chats')
+    $(this).data('sort-order', 'desc').text('Toggle Newest to Oldest Chats')
   } else {
-    $(this).data('sort-order', 'asc').text('Toggle Newest to Oldest Chats')
+    $(this).data('sort-order', 'asc').text('Toggle Oldest to Newest Chats')
   }
 })

@@ -24,9 +24,6 @@ from forms import (
     registration_form,
     new_chat_form,
     title_chat_form,
-    language_filter_form,
-    # chat_title_filter_form,
-    # order_filter_form,
 )
 from models import db, connect_db, User, Chat, Message
 
@@ -54,7 +51,7 @@ def load_user(user_id):
 
 @app.route("/home", methods=["GET", "POST"])
 @login_required
-def home():
+def new_chat():
     """Displays user's home page with form to create a new chat"""
     form = new_chat_form()
 
@@ -66,7 +63,7 @@ def home():
 
         return redirect(url_for("chat_page", chat_id=chat.id, form=form))
 
-    return render_template("user_home.html", form=form)
+    return render_template("new_chat.html", form=form)
 
 
 @app.route("/chats/<int:user_id>")
@@ -93,36 +90,6 @@ def edit(chat_id):
         return redirect(url_for("display_chats", user_id=current_user.id))
 
     return render_template("chat_title.html", form=form)
-
-
-@app.route("/<int:user_id>/chats")
-@login_required
-def filter_chats(user_id):
-    """Shows forms to filter chats"""
-    language_form = language_filter_form()
-    order_form = order_filter_form()
-
-    user = User.query.get(user_id)
-    chats = user.chats
-
-    if language_form.validate_on_submit():
-        language = language_form.language.data
-        chats = chats.filter(Chat.language.ilike(f"%{language}%"))
-
-    if order_form.validate_on_submit():
-        order = order_form.order.data
-        if order == "created_at":
-            chats = chats.order_by(Chat.created_at.desc())
-        elif order == "title":
-            chats = chats.order_by(Chat.chat_title.asc())
-
-    return render_template(
-        "chat_filters.html",
-        chats=chats,
-        user=user,
-        language_form=language_form,
-        order_form=order_form,
-    )
 
 
 @app.route("/chats/delete/<int:chat_id>", methods=["POST"])
@@ -196,8 +163,8 @@ def signup_user():
         db.session.commit()
 
         login_user(user)
-        flash("You are now logged in!", "success")
-        return redirect(url_for("home"))
+
+        return redirect(url_for("index"))
 
     return render_template("signup.html", form=form)
 
@@ -214,8 +181,7 @@ def login():
         if not user:
             flash("Invalid username or password", "danger")
 
-        flash("You are now logged in!", "success")
-        return redirect("/home")
+        return redirect("/")
 
     return render_template("login.html", form=form)
 
