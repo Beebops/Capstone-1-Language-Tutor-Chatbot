@@ -3,47 +3,51 @@ endblock %} {% block content %}
 <div class="container">
   {% for msg in get_flashed_messages() %}
   <p class="text-success bg-dark border border-success border-1">
-    {{ msg }}
-    {% endfor %}
+    {{ msg }} {% endfor %}
+  </p>
+
   <div class="row">
     <div class="col-lg-8 offset-lg-2">
-     
       <ul class="list-group" id="chat-list">
         {% for chat in chats %}
         <li
-        class="list-group-item mb-3"
-        data-chat-id="{{ chat.id }}"
-        data-date-created="{{ chat.created_at}}"
+          class="list-group-item list-group-item-action mb-3"
+          data-chat-language="{{ chat.language }}"
+          data-chat-id="{{ chat.id }}"
+          data-date-created="{{ chat.created_at}}"
         >
           <div class="d-flex justify-content-between align-items-center">
-            
-            </p>
-           
+            <a
+              class="no-underline white"
+              href="{{ url_for('chat_page', chat_id=chat.id) }}"
+            >
+              <span>{{ chat.chat_title }}</span>
+            </a>
+
             <div>
               <a
-                class="list-group-item list-group-item-action"
-                href="{{ url_for('chat_page', chat_id=chat.id) }}"
+                href="{{ url_for('edit', chat_id=chat.id) }}"
+                class="custom-button"
               >
-                {{ chat.chat_title }}
+                <i class="fa-solid fa-pen-to-square"></i>
               </a>
-            </div>
-            <div>
-                <a href="{{ url_for('edit', chat_id=chat.id) }}" class="custom-button">
-                  <i class="fa-solid fa-pen-to-square"></i>
-                </a>
-                <form method="POST" action="{{ url_for('delete_chat', chat_id=chat.id) }}">
-                  <button id="delete-button" type="submit" class="custom-button">
-                    <i class="fa-solid fa-trash"></i>
+              <form
+                method="POST"
+                action="{{ url_for('delete_chat', chat_id=chat.id) }}"
+              >
+                <button id="delete-button" type="submit" class="custom-button">
+                  <i class="fa-solid fa-trash"></i>
                 </button>
-                </form>
+              </form>
             </div>
           </div>
         </li>
         {% endfor %}
       </ul>
       <div id="sortButtons">
-        <button id="sortAscending" class="btn btn-primary mt-3"
-        >Toggle Newest to Oldest Chats</button>
+        <button id="sortAscending" class="btn btn-primary mt-3">
+          Toggle Newest to Oldest Chats
+        </button>
       </div>
     </div>
   </div>
