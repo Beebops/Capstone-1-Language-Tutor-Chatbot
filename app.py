@@ -142,8 +142,11 @@ def chat_page(chat_id):
         )
         return jsonify(response), 200
 
+    chat_title = Chat.get_chat_title(chat_id)
     messages = Message.get_messages_by_chat(chat_id)
-    return render_template("chat.html", chat_id=chat_id, messages=messages)
+    return render_template(
+        "chat.html", chat_id=chat_id, chat_title=chat_title, messages=messages
+    )
 
 
 ################# USER LOGIN AND REGISTRATION #################
@@ -190,7 +193,6 @@ def login():
 @login_required
 def logout():
     logout_user()
-    flash("You are now logged out!", "success")
 
     return redirect(url_for("index"))
 

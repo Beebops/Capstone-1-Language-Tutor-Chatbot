@@ -46,6 +46,14 @@ class Chat(db.Model):
         """Retrieve all chats for a given user starting with the most recent"""
         return cls.query.filter_by(user_id=user_id).order_by(cls.created_at.desc())
 
+    @classmethod
+    def get_chat_title(cls, chat_id):
+        """Retrieve the title of a chat given its chat_id"""
+        chat = cls.query.get(chat_id)
+        if chat:
+            return chat.chat_title
+        return "Untitled Chat"
+
 
 class Message(db.Model):
     """Model of messages produced by either the user or assistant in a chat"""

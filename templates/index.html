@@ -1,32 +1,31 @@
 {% extends 'base.html' %} {% block title %}Home Page{% endblock %}{% block
 content %}
-<div class="container d-flex justify-content-center">
-  <div class="col-md-7 col-lg-5">
-    <div class="row">
       {% for msg in get_flashed_messages() %}
       <p class="text-success bg-dark border border-success border-1">
         {{ msg }}
       </p>
       {% endfor %}{% if current_user.is_authenticated %}
-      <h2 class="text-center mb-4">Welcome {{ current_user.username }}!</h2>
-
-      <a href="{{ url_for('new_chat') }}" class="btn btn-success mb-3"
-        >Start a New Conversation</a
-      >
-
-      {% if current_user.chats %}
-      <a
-        href="{{ url_for('display_chats', user_id=current_user.id) }}"
-        class="btn btn-primary"
-        >View Existing Conversations</a
-      >
-      {% endif %} {% else %}
       
-        
-          
+      <div class="container">
+        <div class="row">     
+          <h2 class="text-center mb-4">Welcome {{ current_user.username }}!</h2>
+            <div class="container d-flex justify-content-center"><a href="{{ url_for('new_chat') }}" class="btn btn-success">Start a New Conversation</a>     
+              {% if current_user.chats %}      
+                <a href="{{ url_for('display_chats', user_id=current_user.id) }}" class="btn btn-primary">View Existing Conversations</a>
+                {% endif %}
+            </div>       
+        </div> <!-- row -->    
+      </div> <!-- container -->
+
+      {% else %}
+      <!-- if there is no logged in user display landing page copy -->
+      <div class="container d-flex justify-content-center">
+          <div class="col-lg-7">
             <h1 class="">ChatMentor</h1>
             <p class="lead mb-3">Master Conversations, Elevate Your Language Skills</p>
-            <h4>Immerse Yourself in Lifelike Conversations</h4>
+            <div class="row">
+              <div class="col-md-4">
+                <h4>Immerse Yourself in Lifelike Conversations</h4>
               <p class="text-body-secondary">
                 Practice your
                 language skills with realistic and dynamic conversation
@@ -34,13 +33,15 @@ content %}
                 dialogues that replicate real-life interactions to enhance your
                 language proficiency.
               </p>
-              <h4>Save and Review for Personalized Learning</h4>
-              <p class="text-body-secondary">Capture and store your
-                conversations for future reference and review. Access your saved
-                dialogues to analyze your progress, identify areas for
-                improvement, and tailor your language learning journey to suit
-                your needs.</p>
-              <h4>A Tailored Language Learning Experience</h4>  
+              </div>
+              <div class="col-md-4"><h4>Save and Review for Personalized Learning</h4>
+                <p class="text-body-secondary">Capture and store your
+                  conversations for future reference and review. Access your saved
+                  dialogues to analyze your progress, identify areas for
+                  improvement, and tailor your language learning journey to suit
+                  your needs.</p></div>
+              <div class="col-md-4">
+                <h4>A Tailored Language Learning Experience</h4>  
               <p class="text-body-secondary">
                 Customize your practice
                 sessions to focus on specific topics, vocabulary, or language
@@ -48,13 +49,17 @@ content %}
                 learner, our app adapts to your skill level and provides
                 targeted exercises to help you excel.
               </p>
+              </div>
+            </div>
+          </div>
+         
             </div>
           </div>
         </div>
       </div>
 
       {% endif %}
-    </div>
-  </div>
+    
+  
 </div>
 {% endblock %}

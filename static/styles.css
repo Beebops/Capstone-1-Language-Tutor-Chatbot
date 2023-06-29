@@ -17,3 +17,7 @@
 .white {
   color: #fff;
 }
+
+.btn-width {
+  max-width: 50%;
+}
