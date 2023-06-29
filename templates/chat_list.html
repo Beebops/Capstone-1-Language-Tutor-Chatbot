@@ -1,17 +1,29 @@
 {% extends 'base.html' %} {% block title %}{{ current_user.username }}'s Chats{%
 endblock %} {% block content %}
 <div class="container">
-  {% for msg in get_flashed_messages() %}
-  <p class="text-success bg-dark border border-success border-1">
-    {{ msg }} {% endfor %}
-  </p>
-
   <div class="row">
     <div class="col-lg-8 offset-lg-2">
+      {% for msg in get_flashed_messages() %}
+      <p class="text-success border border-success border-1">
+        {{ msg }} {% endfor %}
+      </p>
+      <form id="language-form" class="mb-3">
+        <div class="form-group">
+          <label for="language-select">Select Language:</label>
+          <select class="form-control" id="language-select">
+            <option value="">All Languages</option>
+            <option value="spanish">Spanish</option>
+            <option value="french">French</option>
+            <option value="german">German</option>
+            <option value="italian">Italian</option>
+          </select>
+        </div>
+      </form>
+
       <ul class="list-group" id="chat-list">
         {% for chat in chats %}
         <li
-          class="list-group-item list-group-item-action mb-3"
+          class="list-group-item list-group-item-action mb-2"
           data-chat-language="{{ chat.language }}"
           data-chat-id="{{ chat.id }}"
           data-date-created="{{ chat.created_at}}"

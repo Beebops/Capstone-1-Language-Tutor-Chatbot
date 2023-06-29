@@ -25,8 +25,8 @@ from forms import (
     new_chat_form,
     title_chat_form,
     language_filter_form,
-    chat_title_filter_form,
-    order_filter_form,
+    # chat_title_filter_form,
+    # order_filter_form,
 )
 from models import db, connect_db, User, Chat, Message
 
@@ -74,6 +74,7 @@ def home():
 def display_chats(user_id):
     """Shows all of user's chats"""
     chats = Chat.get_chats_by_user(user_id)
+
     return render_template("chat_list.html", chats=chats)
 
 

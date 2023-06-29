@@ -1,3 +1,23 @@
+$(document).ready(function () {
+  // Handle language selection change
+  $('#language-select').on('change', function () {
+    var selectedLanguage = $(this).val()
+    filterChatsByLanguage(selectedLanguage)
+  })
+
+  function filterChatsByLanguage(language) {
+    $('#chat-list li').each(function () {
+      var chatLanguage = $(this).data('chat-language')
+
+      if (language === '' || chatLanguage === language) {
+        $(this).show()
+      } else {
+        $(this).hide()
+      }
+    })
+  }
+})
+
 $('#sortAscending').click(function () {
   const chatList = $('#chat-list')
   const chats = chatList.children('li').get()
