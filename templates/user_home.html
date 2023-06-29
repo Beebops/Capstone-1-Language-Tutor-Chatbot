@@ -5,7 +5,8 @@ content %}
     <div class="row">
         
           <h2>New Chat</h2>
-
+          {% for msg in get_flashed_messages() %}
+    <p class="text-success bg-dark border border-success border-1">{{ msg }}</p>{% endfor %}
           <form method="POST" action="{{ url_for('home') }}">
             {{ form.hidden_tag() }}
             <div class="form-group">

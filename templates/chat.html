@@ -3,34 +3,23 @@ content %}
 
 <main class="flex-shrink-0">
   <div class="container">
-    <ul
-      id="message-group"
-      data-chat-id="{{ chat_id }}"
-      class="list-group w-auto"
-      style="max-height: calc(100vh - 200px); overflow-y: auto"
-    >
-      {% if messages %} {% for message in messages %}
-      <li class="list-group-item my-1">
-        <p class="fs-3">&#128512;</p>
-        <p id="user-text" class="opacity-75">{{ message.content }}</p>
-      </li>
-      {% endfor %} {% endif %}
-    </ul>
-    <!-- <div
-      id="message-group"
-      data-chat-id="{{ chat_id }}"
-      class="list-group w-auto"
-      style="max-height: calc(100vh - 200px); overflow-y: auto"
-    >
-      {% if messages %} {% for message in messages %}
-      <div
-        class="bg-secondary list-group-item list-group-item-action d-flex gap-3 py-3 border border-light border-1"
-      >
-        <p class="fs-3">&#128512;</p>
-        <p id="user-text" class="mb-0 opacity-75">{{ message.content }}</p>
+    <div class="row">
+      <div class="col-lg-8 offset-lg-2">
+        <ul
+          id="message-group"
+          data-chat-id="{{ chat_id }}"
+          class="list-group w-auto"
+          style="max-height: calc(100vh - 200px); overflow-y: auto"
+        >
+          {% if messages %} {% for message in messages %}
+          <li class="list-group-item my-1">
+            <p class="fs-3">&#128512;</p>
+            <p id="user-text" class="opacity-75">{{ message.content }}</p>
+          </li>
+          {% endfor %} {% endif %}
+        </ul>
       </div>
-      {% endfor %} {% endif %}
-    </div> -->
+    </div>
   </div>
 
   <div class="fixed-bottom">
@@ -51,5 +40,6 @@ content %}
     </div>
   </div>
 </main>
+<script src="/static/app.js"></script>
 
 {% endblock %}

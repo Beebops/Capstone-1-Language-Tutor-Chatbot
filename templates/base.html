@@ -63,35 +63,25 @@
                   ><i class="fa-solid fa-house fa-lg icon"></i
                 ></a>
               </li>
+              {% else %}
+              <li class="nav-item">
+                <a class="nav-link" href="{{ url_for('signup_user') }}"
+                  >Signup</a
+                >
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="{{ url_for('login') }}">Login</a>
+              </li>
               {% endif %}
             </ul>
           </div>
         </div>
       </nav>
-
-      <!-- <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-secondary"">
-        <div class="container-fluid d-flex align-items-center">
-          <a class="navbar-brand" href="/">Foreign Language Tutor</a>
-          
-
-          <ul class="navbar-nav mx-auto mb-2 mb-md-0 d-flex">
-            
-            
-            {% if current_user.is_authenticated %}
-            
-            <li><a  href="{{ url_for('display_chats', user_id=current_user.id) }}">Chats</i></a></li>
-
-            <li><a  href="{{ url_for('logout') }}">Logout</i></a></li>
-
-            <li><a  href="{{ url_for('home') }}"><i class="fa-solid fa-house fa-lg icon"></i></a></li>
-            {% endif %}
-          </ul>
-        </div>     
-      </nav> -->
     </header>
+
     <div class="container mt-5">{% block content %}{% endblock %}</div>
     <script src="https://cdn.jsdelivr.net/npm/axios@0.24.0/dist/axios.min.js"></script>
-    <script src="/static/app.js"></script>
-    <script src="/static/formValidation.js"></script>
+    <!-- <script src="/static/app.js"></script> -->
+    <!-- <script src="/static/delete.js"></script> -->
   </body>
 </html>

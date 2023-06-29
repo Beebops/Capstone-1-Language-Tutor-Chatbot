@@ -2,7 +2,15 @@ import os
 import openai
 import openaiapi
 from datetime import datetime
-from flask import Flask, request, jsonify, render_template, flash, redirect, url_for
+from flask import (
+    Flask,
+    request,
+    jsonify,
+    render_template,
+    flash,
+    redirect,
+    url_for,
+)
 from flask_debugtoolbar import DebugToolbarExtension
 from flask_login import (
     LoginManager,
@@ -129,13 +137,14 @@ def delete_chat(chat_id):
             flash("You do not have permission to delete this chat", "error")
     else:
         flash("Chat not found", "error")
-        
+
     return redirect(url_for("display_chats", user_id=current_user.id))
 
 
 @app.route("/chat/<int:chat_id>", methods=["GET", "POST"])
 @login_required
 def chat_page(chat_id):
+    """Handles form to start a new chat with chat bot or returns the saved chat of the given chat_id"""
     if request.method == "POST":
         # Get the user's prompt input and save it as new message in db
         data = request.get_json()
@@ -204,6 +213,7 @@ def login():
         if not user:
             flash("Invalid username or password", "danger")
 
+        flash("You are now logged in!", "success")
         return redirect("/home")
 
     return render_template("login.html", form=form)

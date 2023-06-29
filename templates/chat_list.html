@@ -8,9 +8,13 @@ endblock %} {% block content %}
   <div class="row">
     <div class="col-lg-8 offset-lg-2">
      
-      <ul class="list-group">
+      <ul class="list-group" id="chat-list">
         {% for chat in chats %}
-        <li class="list-group-item mb-3">
+        <li
+        class="list-group-item mb-3"
+        data-chat-id="{{ chat.id }}"
+        data-date-created="{{ chat.created_at}}"
+        >
           <div class="d-flex justify-content-between align-items-center">
             
             </p>
@@ -27,19 +31,22 @@ endblock %} {% block content %}
                 <a href="{{ url_for('edit', chat_id=chat.id) }}" class="custom-button">
                   <i class="fa-solid fa-pen-to-square"></i>
                 </a>
-              
-                <form action="{{ url_for('delete_chat', chat_id=chat.id) }}" method="POST">
-                  <button type="submit" class="custom-button">
+                <form method="POST" action="{{ url_for('delete_chat', chat_id=chat.id) }}">
+                  <button id="delete-button" type="submit" class="custom-button">
                     <i class="fa-solid fa-trash"></i>
-                  </button>
+                </button>
                 </form>
-              
             </div>
           </div>
         </li>
         {% endfor %}
       </ul>
+      <div id="sortButtons">
+        <button id="sortAscending" class="btn btn-primary mt-3"
+        >Toggle Newest to Oldest Chats</button>
+      </div>
     </div>
   </div>
 </div>
+<script src="/static/chatList.js"></script>
 {% endblock %}
