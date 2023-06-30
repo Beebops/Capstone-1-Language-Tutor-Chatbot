@@ -31,7 +31,9 @@ app = Flask(__name__)
 
 app.debug = True
 
-app.config["SQLALCHEMY_DATABASE_URI"] = "postgresql:///capstone_language_tutor"
+app.config["SQLALCHEMY_DATABASE_URI"] = os.environ.get(
+    "DATABASE_URL", "postgresql:///capstone_language_tutor"
+)
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 app.config["SQLALCHEMY_ECHO"] = False
 app.config["DEBUG_TB_INTERCEPT_REDIRECTS"] = False
@@ -47,6 +49,18 @@ app.app_context().push()
 @login_manager.user_loader
 def load_user(user_id):
     return User.query.get(int(user_id))
+
+
+################# INDEX PAGE FOR LOGGED IN AND ANONYMOUS USERS #################
+
+
+@app.route("/")
+def index():
+    """Display index page"""
+    return render_template("index.html")
+
+
+################# CHAT ROUTES #################
 
 
 @app.route("/home", methods=["GET", "POST"])
@@ -149,7 +163,7 @@ def chat_page(chat_id):
     )
 
 
-################# USER LOGIN AND REGISTRATION #################
+################# USER LOGIN AND REGISTRATION ROUTES #################
 
 
 @app.route("/signup", methods=["GET", "POST"])
@@ -183,6 +197,7 @@ def login():
 
         if not user:
             flash("Invalid username or password", "danger")
+        
 
         return redirect("/")
 
@@ -192,18 +207,10 @@ def login():
 @app.route("/logout")
 @login_required
 def logout():
+    """Logs out user"""
     logout_user()
 
     return redirect(url_for("index"))
-
-
-################# HOME PAGES FOR LOGGED IN AND ANONYMOUS USERS #################
-
-
-@app.route("/")
-def index():
-    """Display index page"""
-    return render_template("index.html")
 
 
 if __name__ == "__main__":

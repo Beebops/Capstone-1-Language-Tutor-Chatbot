@@ -1,7 +1,7 @@
 {% extends 'base.html' %} {% block title %}Home Page{% endblock %}{% block
 content %}
       {% for msg in get_flashed_messages() %}
-      <p class="text-success bg-dark border border-success border-1">
+      <p class="text-danger bg-dark border border-danger border-1">
         {{ msg }}
       </p>
       {% endfor %}{% if current_user.is_authenticated %}
@@ -22,10 +22,10 @@ content %}
       <div class="container d-flex justify-content-center">
           <div class="col-lg-7">
             <h1 class="display-1">ChatMentor</h1>
-            <p class="lead mb-3">Master Conversations, Elevate Your Language Skills</p>
+            <p class="lead mb-5">Master Conversations, Elevate Your Language Skills</p>
             <div class="row">
               <div class="col-md-4">
-                <h4>Immerse Yourself in Lifelike Conversations</h4>
+                <h5>Immerse Yourself in Lifelike Conversations</h5>
               <p class="text-body-secondary">
                 Practice your
                 language skills with realistic and dynamic conversation
@@ -34,14 +34,14 @@ content %}
                 language proficiency.
               </p>
               </div>
-              <div class="col-md-4"><h4>Save and Review for Personalized Learning</h4>
+              <div class="col-md-4"><h5>Save and Review for Personalized Learning</h5>
                 <p class="text-body-secondary">Capture and store your
                   conversations for future reference and review. Access your saved
                   dialogues to analyze your progress, identify areas for
                   improvement, and tailor your language learning journey to suit
                   your needs.</p></div>
               <div class="col-md-4">
-                <h4>A Tailored Language Learning Experience</h4>  
+                <h5>A Tailored Language Learning Experience</h5>  
               <p class="text-body-secondary">
                 Customize your practice
                 sessions to focus on specific topics, vocabulary, or language
