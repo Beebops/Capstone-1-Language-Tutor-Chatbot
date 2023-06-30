@@ -29,19 +29,21 @@ block content %}
 
   <div class="fixed-bottom">
     <div class="container">
-      <div class="input-group mb-3">
-        <input
-          id="user-input"
-          type="text"
-          class="form-control"
-          placeholder="start chatting with your tutor"
-          aria-label="start chatting with your tutor"
-          aria-describedby="submit-button"
-        />
-        <button class="btn btn-primary" type="button" id="submit-button">
-          Submit
-        </button>
-      </div>
+      <form id="chat-form">
+        <div class="input-group mb-3">
+          <input
+            id="user-input"
+            type="text"
+            class="form-control"
+            placeholder="start chatting with your tutor"
+            aria-label="start chatting with your tutor"
+            aria-describedby="submit-button"
+          />
+          <button class="btn btn-primary" type="submit" id="submit-button">
+            Submit
+          </button>
+        </div>
+      </form>
     </div>
   </div>
 </main>

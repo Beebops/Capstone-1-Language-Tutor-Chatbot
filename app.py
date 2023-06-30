@@ -148,6 +148,10 @@ def chat_page(chat_id):
             prompt, language, language_level
         )
         response = {"assistant_message": assistant_message}
+        print(
+            response
+        )  # {'assistant_message': '¡Claro, puedo ayudarte con eso! Bienvenido al concesionario. ¿Qué tipo de auto estás buscando?'}
+
         Message.create_message(
             chat_id,
             role="Assistant",
@@ -197,7 +201,6 @@ def login():
 
         if not user:
             flash("Invalid username or password", "danger")
-        
 
         return redirect("/")
 

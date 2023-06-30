@@ -1,6 +1,7 @@
 const chatId = $('#message-group').data('chatId')
 
-$('#submit-button').click(async function () {
+$('#chat-form').submit(async function (e) {
+  e.preventDefault()
   const message = $('#user-input').val()
 
   let htmlData = `
