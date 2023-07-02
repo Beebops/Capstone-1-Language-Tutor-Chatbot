@@ -201,6 +201,7 @@ def login():
 
         if not user:
             flash("Invalid username or password", "danger")
+            return render_template("login.html", form=form)
 
         return redirect("/")
 
