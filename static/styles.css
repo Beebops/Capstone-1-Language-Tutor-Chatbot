@@ -2,6 +2,10 @@ body {
   font-family: 'Epilogue', sans-serif;
 }
 
+h1 {
+  font-weight: 700;
+}
+
 .custom-button {
   border: none;
   background: none;
@@ -26,14 +30,22 @@ body {
   font-size: 20px;
 }
 
-.btn-success {
-  background-color: #9457e0;
+.btn-primary {
+  background-color: #fcb4b5;
 }
 
-.btn-success:hover {
-  background-color: #aa78e6;
+.btn-primary:hover {
+  background-color: #ec5648;
 }
 
 .navbar {
-  background-color: #fa9370;
+  background-color: #7689d6;
+}
+
+.navy {
+  color: #3b72ab;
+}
+
+.illustration {
+  width: 100%;
 }

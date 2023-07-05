@@ -8,19 +8,15 @@ content %} {% for msg in get_flashed_messages() %}
     <h2 class="text-center mb-4">Welcome {{ current_user.username }}!</h2>
 
     <div class="container d-flex justify-content-center">
-      <div
-        class="d-flex flex-column flex-md-row align-items-center justify-content-center justify-content-md-start"
-      >
-        <a
-          href="{{ url_for('new_chat') }}"
-          class="btn btn-success mb-2 mb-md-0 mr-md-2"
-          >Start a New Conversation</a
+      <div class="btn-group">
+        <a href="{{ url_for('new_chat') }}" class="btn btn-primary"
+          >New Conversation</a
         >
         {% if current_user.chats %}
         <a
           href="{{ url_for('display_chats', user_id=current_user.id) }}"
-          class="btn btn-success md-2 mt-md-0"
-          >View Saved Conversations</a
+          class="btn btn-primary"
+          >Saved Conversations</a
         >
         {% endif %}
       </div>
@@ -34,15 +30,30 @@ content %} {% for msg in get_flashed_messages() %}
 
 {% else %}
 <!-- if there is no logged in user display landing page copy -->
-<div class="container d-flex justify-content-center">
-  <div class="col-lg-7">
-    <h1 class="display-1">ChatTutor</h1>
+<div class="container">
+  <div class="row justify-content-start mb-3">
+    <div class="col-lg-7">
+      
+        <div class="row">
+          <div class="col-lg-6">
+            <h1 class="display-3">ChatTutor</h1>
+            <p class="lead mb-5">
+              Master Conversations, Elevate Your Language Skills
+            </p>
+          </div>
+        </div>
+        <img
+              class="illustration"
+              src="/static/images/saying-hello.jpg"
+              alt="People saying hello in different languages"
+            />      
+    </div>
+  </div>
 
-    <p class="lead mb-5">Master Conversations, Elevate Your Language Skills</p>
     <div class="row">
       <div class="col-md-4">
         <h5>Immerse Yourself in Lifelike Conversations</h5>
-        <p class="text-body-secondary">
+        <p class="text-body-secondary navy">
           Practice your language skills with realistic and dynamic conversation
           scenarios powered by the OpenAI API. Engage in authentic dialogues
           that replicate real-life interactions to enhance your language
@@ -70,10 +81,8 @@ content %} {% for msg in get_flashed_messages() %}
         </p>
       </div>
     </div>
-    <!--row -->
   </div>
-  <!--col-lg-7-->
+  </div>
 </div>
-<!--container d-flex justify-content-center-->
 
 {% endif %} {% endblock %}
