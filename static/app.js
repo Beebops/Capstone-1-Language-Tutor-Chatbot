@@ -5,7 +5,7 @@ $('#chat-form').submit(async function (e) {
   const message = $('#user-input').val()
 
   let htmlData = `
-    <li class="list-group-item my-1">
+    <li class="shadow-sm list-group-item my-1">
       <div class="row align-items-center">
         <div class="col-auto">
           <span class="fs-3">&#128512;</span>
@@ -24,7 +24,7 @@ $('#chat-form').submit(async function (e) {
     const response = await axios.post(`/chat/${chatId}`, { prompt: message })
 
     let apiData = `
-      <li class="list-group-item my-1">
+      <li class="shadow-sm list-group-item my-1">
         <div class="row align-items-center">
           <div class="col-auto">
             <span class="fs-3">&#127891;</span>
@@ -40,7 +40,7 @@ $('#chat-form').submit(async function (e) {
     console.log(message)
   } catch (error) {
     // Handle error
-    alert('Uh oh! We are experiencing technical difficulties. Try again later')
+    alert('We are experiencing technical difficulties. Try again later')
     console.error(error)
   }
 })

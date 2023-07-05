@@ -1,65 +1,79 @@
 {% extends 'base.html' %} {% block title %}Home Page{% endblock %}{% block
-content %}
-      {% for msg in get_flashed_messages() %}
-      <p class="text-danger bg-dark border border-danger border-1">
-        {{ msg }}
-      </p>
-      {% endfor %}{% if current_user.is_authenticated %}
-      
-      <div class="container">
-        <div class="row">     
-          <h2 class="text-center mb-4">Welcome {{ current_user.username }}!</h2>
-            <div class="container d-flex justify-content-center"><a href="{{ url_for('new_chat') }}" class="btn btn-success">Start a New Conversation</a>     
-              {% if current_user.chats %}      
-                <a href="{{ url_for('display_chats', user_id=current_user.id) }}" class="btn btn-primary">View Existing Conversations</a>
-                {% endif %}
-            </div>       
-        </div> <!-- row -->    
-      </div> <!-- container -->
+content %} {% for msg in get_flashed_messages() %}
+<p class="text-danger bg-dark border border-danger border-1">{{ msg }}</p>
+{% endfor %}{% if current_user.is_authenticated %}
 
-      {% else %}
-      <!-- if there is no logged in user display landing page copy -->
-      <div class="container d-flex justify-content-center">
-          <div class="col-lg-7">
-            <h1 class="display-1">ChatMentor</h1>
-            <p class="lead mb-5">Master Conversations, Elevate Your Language Skills</p>
-            <div class="row">
-              <div class="col-md-4">
-                <h5>Immerse Yourself in Lifelike Conversations</h5>
-              <p class="text-body-secondary">
-                Practice your
-                language skills with realistic and dynamic conversation
-                scenarios powered by the OpenAI API. Engage in authentic
-                dialogues that replicate real-life interactions to enhance your
-                language proficiency.
-              </p>
-              </div>
-              <div class="col-md-4"><h5>Save and Review for Personalized Learning</h5>
-                <p class="text-body-secondary">Capture and store your
-                  conversations for future reference and review. Access your saved
-                  dialogues to analyze your progress, identify areas for
-                  improvement, and tailor your language learning journey to suit
-                  your needs.</p></div>
-              <div class="col-md-4">
-                <h5>A Tailored Language Learning Experience</h5>  
-              <p class="text-body-secondary">
-                Customize your practice
-                sessions to focus on specific topics, vocabulary, or language
-                proficiency levels. Whether you're a beginner or an advanced
-                learner, our app adapts to your skill level and provides
-                targeted exercises to help you excel.
-              </p>
-              </div>
-            </div>
-          </div>
-         
-            </div>
-          </div>
-        </div>
+<div class="container">
+  <div class="row">
+    <h2 class="text-center mb-4">Welcome {{ current_user.username }}!</h2>
+
+    <div class="container d-flex justify-content-center">
+      <div
+        class="d-flex flex-column flex-md-row align-items-center justify-content-center justify-content-md-start"
+      >
+        <a
+          href="{{ url_for('new_chat') }}"
+          class="btn btn-success mb-2 mb-md-0 mr-md-2"
+          >Start a New Conversation</a
+        >
+        {% if current_user.chats %}
+        <a
+          href="{{ url_for('display_chats', user_id=current_user.id) }}"
+          class="btn btn-success md-2 mt-md-0"
+          >View Saved Conversations</a
+        >
+        {% endif %}
+      </div>
+    </div>
+    <img
+      src="/static/images/saying-hello.jpg"
+      alt="People saying hello in different languages"
+    />
+  </div>
+</div>
+
+{% else %}
+<!-- if there is no logged in user display landing page copy -->
+<div class="container d-flex justify-content-center">
+  <div class="col-lg-7">
+    <h1 class="display-1">ChatTutor</h1>
+
+    <p class="lead mb-5">Master Conversations, Elevate Your Language Skills</p>
+    <div class="row">
+      <div class="col-md-4">
+        <h5>Immerse Yourself in Lifelike Conversations</h5>
+        <p class="text-body-secondary">
+          Practice your language skills with realistic and dynamic conversation
+          scenarios powered by the OpenAI API. Engage in authentic dialogues
+          that replicate real-life interactions to enhance your language
+          proficiency.
+        </p>
       </div>
 
-      {% endif %}
-    
-  
+      <div class="col-md-4">
+        <h5>Save and Review for Personalized Learning</h5>
+        <p class="text-body-secondary">
+          Capture and store your conversations for future reference and review.
+          Access your saved dialogues to analyze your progress, identify areas
+          for improvement, and tailor your language learning journey to suit
+          your needs.
+        </p>
+      </div>
+
+      <div class="col-md-4">
+        <h5>A Tailored Language Learning Experience</h5>
+        <p class="text-body-secondary">
+          Customize your practice sessions to focus on specific topics,
+          vocabulary, or language proficiency levels. Whether you're a beginner
+          or an advanced learner, our app adapts to your skill level and
+          provides targeted exercises to help you excel.
+        </p>
+      </div>
+    </div>
+    <!--row -->
+  </div>
+  <!--col-lg-7-->
 </div>
-{% endblock %}
+<!--container d-flex justify-content-center-->
+
+{% endif %} {% endblock %}

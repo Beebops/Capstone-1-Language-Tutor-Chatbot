@@ -1,3 +1,7 @@
+body {
+  font-family: 'Epilogue', sans-serif;
+}
+
 .custom-button {
   border: none;
   background: none;
@@ -20,4 +24,16 @@
 
 .flag {
   font-size: 20px;
+}
+
+.btn-success {
+  background-color: #9457e0;
+}
+
+.btn-success:hover {
+  background-color: #aa78e6;
+}
+
+.navbar {
+  background-color: #fa9370;
 }

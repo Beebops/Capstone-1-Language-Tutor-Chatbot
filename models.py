@@ -3,7 +3,8 @@ from datetime import datetime
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import UserMixin, login_user
 from sqlalchemy.sql import func
-import openai
+
+# import openai
 
 db = SQLAlchemy()
 bcrypt = Bcrypt()

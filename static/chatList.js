@@ -1,13 +1,13 @@
 $(document).ready(function () {
   // Handle language selection change
   $('#language-select').on('change', function () {
-    var selectedLanguage = $(this).val()
+    let selectedLanguage = $(this).val()
     filterChatsByLanguage(selectedLanguage)
   })
 
   function filterChatsByLanguage(language) {
     $('#chat-list li').each(function () {
-      var chatLanguage = $(this).data('chat-language')
+      let chatLanguage = $(this).data('chat-language')
 
       if (language === '' || chatLanguage === language) {
         $(this).show()

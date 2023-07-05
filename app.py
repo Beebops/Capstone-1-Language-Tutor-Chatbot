@@ -1,5 +1,6 @@
 import os
-import openai
+
+# import openai
 import openaiapi
 from datetime import datetime
 from flask import (
@@ -28,12 +29,12 @@ from forms import (
 from models import db, connect_db, User, Chat, Message
 
 app = Flask(__name__)
-
 app.debug = True
 
 app.config["SQLALCHEMY_DATABASE_URI"] = os.environ.get(
     "DATABASE_URL", "postgresql:///capstone_language_tutor"
 )
+
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 app.config["SQLALCHEMY_ECHO"] = False
 app.config["DEBUG_TB_INTERCEPT_REDIRECTS"] = False
