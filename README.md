@@ -1,6 +1,6 @@
 # CHAT TUTOR
 
-### URL
+### DEMO CHAT TUTOR HERE
 [Chat Tutor](https://chat-tutor.onrender.com/)
 
 ### OVERVIEW
