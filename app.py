@@ -10,7 +10,8 @@ from flask import (
     redirect,
     url_for,
 )
-from flask_debugtoolbar import DebugToolbarExtension
+
+# from flask_debugtoolbar import DebugToolbarExtension
 from flask_login import (
     LoginManager,
     login_user,
@@ -27,7 +28,7 @@ from forms import (
 from models import db, connect_db, User, Chat, Message
 
 app = Flask(__name__)
-app.debug = True
+app.debug = False
 
 app.config["SQLALCHEMY_DATABASE_URI"] = os.environ.get(
     "DATABASE_URL", "postgresql:///capstone_language_tutor"
@@ -38,7 +39,7 @@ app.config["SQLALCHEMY_ECHO"] = False
 app.config["DEBUG_TB_INTERCEPT_REDIRECTS"] = False
 app.config["SECRET_KEY"] = os.environ.get("LANGUAGE_TUTOR_SECRET_KEY")
 
-toolbar = DebugToolbarExtension(app)
+# toolbar = DebugToolbarExtension(app)
 login_manager = LoginManager(app)
 
 connect_db(app)
