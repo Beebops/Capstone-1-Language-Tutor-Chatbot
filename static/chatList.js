@@ -38,7 +38,7 @@ $('#sortAscending').click(function () {
     return compareResult
   })
 
-  chatList.empty() // clear existing LI elements
+  chatList.empty()
 
   $.each(chats, function (index, chat) {
     chatList.append(chat)
