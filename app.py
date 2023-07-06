@@ -76,7 +76,7 @@ def new_chat():
 
         chat = Chat.create_chat(current_user.id, language, language_level)
 
-        return redirect(url_for("chat_page", chat_id=chat.id, form=form))
+        return redirect(url_for("chat_page", chat_id=chat.id))
 
     return render_template("new_chat.html", form=form)
 
